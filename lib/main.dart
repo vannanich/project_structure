@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/routes/app_pages.dart';
 import 'package:flutter_application_1/routes/app_routes.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
+
   runApp(const MainApp());
 }
 
@@ -12,10 +15,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var box = GetStorage();
+
+    var isLogin = box.read("isLogin") ?? false;
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      // home: HomescreenView(),
-      initialRoute: AppRoutes.home,
+      // home: LoginScreenView(),
+      initialRoute: isLogin ? AppRoutes.home : AppRoutes.login,
       getPages: AppPages.routes,
     );
   }
