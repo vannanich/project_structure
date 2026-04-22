@@ -28,8 +28,11 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/routes/app_routes.dart';
 import 'package:flutter_application_1/screen/homescreen/homescreen_controller.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/route_manager.dart';
+import 'package:get_storage/get_storage.dart';
 
 class HomeScreenView extends GetView<HomeScreenController> {
   const HomeScreenView({super.key});
@@ -43,7 +46,16 @@ class HomeScreenView extends GetView<HomeScreenController> {
           Text("Full Name ${controller.user!.fullName}"),
           Text("Email ${controller.user!.email}"),
           Text("Password ${controller.user!.password}"),
-        ], 
+          ElevatedButton(
+            onPressed: () {
+              var box = GetStorage();
+              box.erase(); // clear all key 
+              // box.remove("login") // this remove only one key login 
+              Get.toNamed(AppRoutes.login);
+            },
+            child: Text("Logout"),
+          ),
+        ],
       ),
     );
   }

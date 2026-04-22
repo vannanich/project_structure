@@ -1,121 +1,11 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_application_1/screen/login_screen/login_screen_arguments.dart';
-// import 'package:flutter_application_1/routes/app_routes.dart';
-// import 'package:flutter_application_1/widgets/textField/custom_textField.dart';
-// import 'package:get/get.dart';
-// import 'package:get_storage/get_storage.dart';
-
-// part 'login_screen_binding.dart';
-// part 'login_screen_controller.dart';
-
-// class LoginScreenView extends GetView<LoginScreenViewController> {
-//   const LoginScreenView({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(),
-//       body: Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: Column(
-//           children: [_buildHeader(), SizedBox(height: 20), _buildText()],
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget _buildText() {
-//     return Column(
-//       children: [
-//         CustomTextfield(
-//           hintText: "Enter FullName...",
-//           txtControoler: controller.flCtrl,
-//         ),
-//         CustomTextfield(
-//           hintText: "Enter Email...",
-//           txtControoler: controller.emailCtrl,
-//         ),
-//         Obx(
-//           () => CustomTextfield(
-//             hintText: "Password...",
-//             isHide: controller.isHidePassword.value,
-//             isPass: true,
-
-//             sufficIcon: GestureDetector(
-//               onTap: () {
-//                 controller.togglePassword();
-//               },
-//               child: Icon(
-//                 controller.isHidePassword.value
-//                     ? Icons.visibility_off
-//                     : Icons.visibility,
-//               ),
-//             ),
-//             txtControoler: controller.passCtrl,
-//           ),
-//         ),
-//         ElevatedButton(
-//           onPressed: () {
-//             controller.login();
-//             // Get.toNamed(
-//             //   AppRoutes.home,
-//             //   arguments: LoginScreenArguments(
-//             //     fullname: controller.flCtrl.text,
-//             //     email: controller.emailCtrl.text,
-//             //     password: controller.emailCtrl.text,
-//             //   ),
-//             // );
-//           },
-//           child: Text("Login"),
-//         ),
-//       ],
-//     );
-//   }
-
-//   Widget _buildHeader() {
-//     return Column(
-//       children: [
-//         Row(
-//           children: [
-//             Container(
-//               width: 50,
-//               height: 50,
-//               decoration: BoxDecoration(color: Colors.green),
-//             ),
-//             SizedBox(width: 20),
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   "MY FIRST APP",
-//                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-//                 ),
-//                 Text("By flutter framework"),
-//               ],
-//             ),
-//           ],
-//         ),
-//         Text(
-//           "Sign in OR CREATE AN ACCOUNT ",
-//           style: TextStyle(
-//             color: Colors.black,
-//             fontWeight: FontWeight.bold,
-//             fontSize: 40,
-//           ),
-//         ),
-//         Text(
-//           "Help beginner developers and IT students master coding skills  through gamified quizzes and micro-challenges.",
-//         ),
-//       ],
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/localization/localization_service.dart';
 import 'package:flutter_application_1/routes/app_routes.dart';
 import 'package:flutter_application_1/screen/login_screen/login_screen_arguments.dart';
 import 'package:flutter_application_1/widgets/textField/custom_textField.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 part 'login_screen_binding.dart';
 part 'login_screen_controller.dart';
@@ -135,6 +25,7 @@ class LoginScreenView extends GetView<LoginScreenViewController> {
               _buildHeader(),
               SizedBox(height: 25),
               _buildGreeting(),
+              SizedBox(height: 20),
               _buildLogin(),
             ],
           ),
@@ -147,19 +38,21 @@ class LoginScreenView extends GetView<LoginScreenViewController> {
     return Column(
       children: [
         CustomTextfield(
-          hintText: "Full Name",
+          hintText: 'Full Name'.tr,
           txtController: controller.fnCtrl,
           txtControoler: null,
         ),
+        SizedBox(height: 20),
         CustomTextfield(
-          hintText: "Email Address",
+          hintText: 'Email'.tr,
           txtController: controller.emailCtrl,
           txtControoler: null,
         ),
+        SizedBox(height: 20),
         Obx(
           () => CustomTextfield(
             txtController: controller.passCtrl,
-            hintText: "Password",
+            hintText: 'Password',
             isPass: true,
             isHide: controller.isHidePassword.value,
             sufficIcon: GestureDetector(
@@ -175,12 +68,53 @@ class LoginScreenView extends GetView<LoginScreenViewController> {
             txtControoler: null,
           ),
         ),
+        SizedBox(height: 20),
 
-        ElevatedButton(
-          onPressed: () {
-            controller.login();
-          },
-          child: Text("Login"),
+        // ElevatedButton(
+        //   onPressed: () {
+        //     controller.login();
+        //   },
+        //   child: Text('login'),
+        // ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 120,
+              child: ElevatedButton(
+                onPressed: () {
+                  // Get.updateLocale(Locale("kmKH"));
+                  LocalizationService().changeLocale("kmKH");
+                  debugPrint("${Get.locale}");
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.brown,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(5),
+                  ),
+                ),
+                child: Text('Khmer'),
+              ),
+            ),
+            SizedBox(width: 20),
+            SizedBox(
+              width: 120,
+              child: ElevatedButton(
+                onPressed: () {
+                  // Get.updateLocale(Locale("enUS"));
+                  LocalizationService().changeLocale("enUS");
+                  debugPrint(Get.locale!.languageCode);
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(5),
+                  ),
+                ),
+                child: Text('English'),
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -191,12 +125,29 @@ class LoginScreenView extends GetView<LoginScreenViewController> {
       crossAxisAlignment: .start,
       children: [
         Text(
-          "SIGN IN OR CREATE AN ACCOUNT",
-          style: TextStyle(fontSize: 40, fontWeight: .bold, height: 1),
+          'greeting_title'.tr,
+          style: Get.locale!.languageCode == "kmKH"
+              ? GoogleFonts.googleSans(
+                  fontSize: 40,
+                  fontWeight: .bold,
+                  height: 1,
+                )
+              : GoogleFonts.spaceGrotesk(
+                  fontSize: 40,
+                  fontWeight: .bold,
+                  height: 1,
+                ),
         ),
+        SizedBox(height: 20),
         Text(
-          "Help beginner developers and IT students master coding skills  through gamified quizzes and micro-challenges.",
-          style: TextStyle(fontSize: 13, fontWeight: .normal, height: 1.2),
+          'Help beginner developers and IT students master coding skills  through gamified quizzes and micro-challenges.'
+              .tr,
+          style: GoogleFonts.googleSans(
+            fontSize: 13,
+            fontWeight: FontWeight.bold,
+            height: 1.2,
+            color: Colors.black,
+          ),
         ),
       ],
     );
@@ -206,17 +157,17 @@ class LoginScreenView extends GetView<LoginScreenViewController> {
     return Row(
       spacing: 10,
       children: [
-        Container(width: 50, height: 50, color: Colors.green),
+        Container(width: 50, height: 50, color: Colors.grey),
 
         Column(
           crossAxisAlignment: .start,
           children: [
             Text(
-              "MY FIRST APP",
+              'MY FIRST APP',
               style: TextStyle(fontSize: 20, fontWeight: .bold, height: 1.2),
             ),
             Text(
-              "by flutter  framework",
+              'by flutter framework',
               style: TextStyle(fontSize: 13, fontWeight: .normal, height: 1.2),
             ),
           ],

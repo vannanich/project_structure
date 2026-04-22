@@ -42,7 +42,8 @@ class CustomTextfield extends StatelessWidget {
     required this.txtController,
     this.sufficIcon,
     this.isPass = false,
-    this.isHide = true, required txtControoler,
+    this.isHide = true,
+    required txtControoler,
   });
 
   @override
@@ -50,7 +51,12 @@ class CustomTextfield extends StatelessWidget {
     return TextFormField(
       controller: txtController,
       obscureText: isPass && isHide,
-      decoration: InputDecoration(hintText: hintText, suffixIcon: sufficIcon),
+      decoration: InputDecoration(
+        
+        hintText: hintText,
+        suffixIcon: sufficIcon,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20),borderSide: BorderSide()),
+      ),
     );
   }
 }
